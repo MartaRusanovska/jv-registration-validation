@@ -77,6 +77,12 @@ class RegistrationServiceImplTest {
         User registered = registrationService.register(user1);
         assertNotNull(registered);
         assertEquals("Danylo", registered.getLogin());
+        User newUser = new User();
+        newUser.setLogin("Danylo");
+        newUser.setPassword("danylo");
+        newUser.setAge(25);
+        assertThrows(InvalidUserException.class, ()
+                -> registrationService.register(newUser));
     }
 
     @Test

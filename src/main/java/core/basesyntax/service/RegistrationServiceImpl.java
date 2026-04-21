@@ -14,11 +14,17 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public User register(User user) {
+        if (user.getLogin() == null) {
+            throw new InvalidUserException("You can't use null");
+        }
+        if (user.getAge() == null) {
+            throw new InvalidUserException("You can't use null");
+        }
+        if (user.getPassword() == null) {
+            throw new InvalidUserException("You can't use null");
+        }
         if (storageDao.get(user.getLogin()) != null) {
             throw new InvalidUserException("User already exists");
-        }
-        if (user.getLogin() == null || user.getAge() == null || user.getPassword() == null) {
-            throw new InvalidUserException("You can't use null");
         }
         if (user.getLogin().length() >= 6
                 && user.getPassword().length() >= 6
